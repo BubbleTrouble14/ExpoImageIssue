@@ -52,6 +52,7 @@ function RowItem({item}: RowItemProps): JSX.Element {
             overflow: 'hidden',
           }}>
           <Image
+            recyclingKey={item.id}
             style={{
               width: '100%',
               aspectRatio: 1,
@@ -73,7 +74,7 @@ function App(): JSX.Element {
   // const [data, setData] = useState<Collection[]>([]);
   const [data, setData] = useState<CollectionNFT[]>([]);
 
-  const [numColumns, setNumColumns] = useState<number>(0);
+  const [numColumns, setNumColumns] = useState<number>(3);
   const [nextPage, setNextPage] = useState<string | undefined>(undefined);
 
   const renderItem: ListRenderItem<Collection> = ({item}) => (
@@ -141,6 +142,8 @@ function App(): JSX.Element {
       <Button
         title="press"
         onPress={() => {
+          Image.clearMemoryCache();
+          Image.clearDiskCache();
           setNumColumns(prev => {
             if (prev === 3) {
               return 0;
